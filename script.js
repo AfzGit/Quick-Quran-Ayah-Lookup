@@ -7,10 +7,10 @@ const site2 = "https://quranwbw.com/";
 const site3 = "https://tanzil.net/";
 
 function qurancomFix(surah, ayahNum) {
-    if (ayahNum !== "") {
-        ayahNum = `/${ayahNum}`;
-    } else if (ayahNum == 0 || ayahNum === "") {
+    if (ayahNum === "" || ayahNum === "0") {
         ayahNum = "";
+    } else {
+        ayahNum = `/${ayahNum}`;
     }
 
     surah = `${site1}${surah}${ayahNum}`;
@@ -18,10 +18,10 @@ function qurancomFix(surah, ayahNum) {
     return surah;
 }
 function quranwbwFix(surah, ayahNum) {
-    if (ayahNum !== "") {
-        ayahNum = `#${ayahNum}`;
-    } else if (ayahNum == 0 || ayahNum === "") {
+    if (ayahNum === "" || ayahNum === "0") {
         ayahNum = "";
+    } else {
+        ayahNum = `#${ayahNum}`;
     }
 
     surah = `${site2}${surah}${ayahNum}`;
@@ -29,17 +29,24 @@ function quranwbwFix(surah, ayahNum) {
     return surah;
 }
 function tanzilFix(surah, ayahNum) {
-    if (ayahNum !== "") {
-        ayahNum = `:${ayahNum}`;
-    } else if (ayahNum == 0 || ayahNum === "") {
+    if (ayahNum === "" || ayahNum === "0") {
         ayahNum = "";
+    } else {
+        ayahNum = `:${ayahNum}`;
     }
 
-    surah = `${site3}#${surah}:${ayahNum}`;
+    surah = `${site3}#${surah}${ayahNum}`;
     return surah;
 }
+
 function tanzilEnFix(surah, ayahNum) {
-    surah = `${site3}#trans/en.hilali/${surah}:${ayahNum}`;
+    if (ayahNum === "" || ayahNum === "0") {
+        ayahNum = "";
+    } else {
+        ayahNum = `:${ayahNum}`;
+    }
+
+    surah = `${site3}#trans/en.hilali/${surah}${ayahNum}`;
     return surah;
 }
 
@@ -51,7 +58,9 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
     const ayahNum = document.getElementById("ayah-num").value;
     var surah = "";
 
-    console.log(`surah: ${surah}, surahNum: ${surahNum}, ayahNum: ${ayahNum}`);
+    console.log(
+        `surah: ${surah} ${typeof surah}, surahNum: ${surahNum} ${typeof surahNum}, ayahNum: ${ayahNum} ${typeof ayahNum}`
+    );
 
     if (surahName !== "") {
         surah = surahName;

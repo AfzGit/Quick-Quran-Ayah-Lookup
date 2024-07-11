@@ -143,12 +143,17 @@
                     <option value="113">113. Al-Falaq</option>
                     <option value="114">114. An-Nas</option>
                 </select>
-                <br /><br />
-                <h3>(OR)</h3>
                 <br />
+                <h3>(OR)</h3>
                 <label for="Surah-num"><b>Surah Number:</b></label>
-                <input class="small-input" type="number" id="Surah-num" />
-                (Preferred) <br /><br /><br /><br />
+                <input
+                    class="small-input"
+                    type="number"
+                    id="Surah-num"
+                    min="1"
+                    max="114"
+                />
+                (Preferred) <br />
                 <hr />
                 <label for="ayah-num"><b>Ayah Number:</b></label>
                 <input
@@ -156,6 +161,8 @@
                     type="number"
                     id="ayah-num"
                     name="ayah-num"
+                    min="0"
+                    max="286"
                 />
                 <br /><br />
                 <button type="submit">Generate URL</button>
