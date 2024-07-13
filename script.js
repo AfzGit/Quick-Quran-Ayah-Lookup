@@ -165,7 +165,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 // Ayah Print
                 document.getElementById(
                     "quran"
-                ).innerHTML = `${enSurahDetails}<br><br>${result.ar} <br><br> ${result.en}<br><br>`;
+                ).innerHTML = `${enSurahDetails}<br><br>${result.ar} <br><br>${result.en}<br><br>`;
 
                 // buttons to copy
                 // full copy
