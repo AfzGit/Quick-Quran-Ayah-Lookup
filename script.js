@@ -16,7 +16,7 @@ async function getayah(surah, ayah) {
     try {
         // Fetch English translation
         const enResponse = await fetch(
-            `http://api.alquran.cloud/v1/ayah/${surah}:${ayah}/en.hilali`
+            `https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/en.hilali`
         );
         if (!enResponse.ok) {
             throw new Error("Failed to fetch English Ayah");
@@ -25,7 +25,7 @@ async function getayah(surah, ayah) {
 
         // Fetch Arabic text
         const arResponse = await fetch(
-            `http://api.alquran.cloud/v1/ayah/${surah}:${ayah}/ar`
+            `https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/ar`
         );
         if (!arResponse.ok) {
             throw new Error("Failed to fetch Arabic Ayah");
