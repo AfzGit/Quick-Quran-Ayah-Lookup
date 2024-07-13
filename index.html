@@ -11,6 +11,17 @@
                 padding: 5px;
                 font-size: 14px;
             }
+            button {
+                padding: 5px;
+                margin: 5px 0px;
+                border-radius: 5px;
+            }
+            li {
+                margin: 7px 0px;
+            }
+            body {
+                background-color: rgb(255, 230, 210);
+            }
         </style>
     </head>
     <body>
@@ -154,6 +165,7 @@
                     min="1"
                     max="114"
                 />
+                <br />
                 <em>(leave emtpy to use Surah name)</em> <br />
                 <hr />
                 <label for="ayah-num"><b>Ayah Number:</b></label>
@@ -166,8 +178,9 @@
                     min="0"
                     max="286"
                 />
+                <br /><br />
                 <label for="lang"
-                    ><b>Language:</b>
+                    ><b>Translation:</b>
                     <select id="lang" name="lang">
                         <option value="en.hilali" selected>English</option>
                         <option value="ur.junagarhi">Urdu</option>
@@ -213,4 +226,11 @@
         </div>
         <script src="script.js"></script>
     </body>
+    <footer>
+        <hr />
+        Report issues or contribute here:
+        <a href="https://www.github.com/AfzGit/Quick-Quran-Ayah-Lookup">
+            https://www.github.com/AfzGit/Quick-Quran-Ayah-Lookup</a
+        >
+    </footer>
 </html>
