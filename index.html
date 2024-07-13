@@ -6,10 +6,10 @@
         <title>Quick Quran Ayah Lookup</title>
         <style>
             .small-input {
-                width: 50px;
+                width: 312px;
                 height: 20px;
                 padding: 5px;
-                font-size: 16px;
+                font-size: 14px;
             }
         </style>
     </head>
@@ -148,12 +148,13 @@
                 <label for="Surah-num"><b>Surah Number:</b></label>
                 <input
                     class="small-input"
+                    placeholder="Surah Number (1-144)"
                     type="number"
                     id="Surah-num"
                     min="1"
                     max="114"
                 />
-                (Preferred) <br />
+                <em>(leave emtpy to use Surah name)</em> <br />
                 <hr />
                 <label for="ayah-num"><b>Ayah Number:</b></label>
                 <input
@@ -161,10 +162,19 @@
                     type="number"
                     id="ayah-num"
                     name="ayah-num"
+                    placeholder="Ayah Number (1-286)"
                     min="0"
                     max="286"
                 />
-                <br /><br />
+                <label for="lang"
+                    ><b>Language:</b>
+                    <select id="lang" name="lang">
+                        <option value="en.hilali" selected>English</option>
+                        <option value="ur.junagarhi">Urdu</option>
+                    </select>
+                </label>
+                <div id="buttons"></div>
+                <br />
                 <button type="submit" style="padding: 10px">
                     🔘 Submit 🔘
                 </button>

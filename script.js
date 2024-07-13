@@ -1,3 +1,14 @@
+// https://quran.com/1/1
+const site1 = "https://quran.com/";
+// https://quranwbw.com/2#5
+const site2 = "https://quranwbw.com/";
+// https://tanzil.net/#trans/en.hilali/2:6
+// https://tanzil.net/#2:6
+const site3 = "https://tanzil.net/";
+
+// copy variables
+let fullc, arc, enc;
+
 function copyToClipboard(textToCopy) {
     navigator.clipboard
         .writeText(textToCopy)
@@ -12,11 +23,11 @@ function copyToClipboard(textToCopy) {
         });
 }
 
-async function getayah(surah, ayah) {
+async function getayah(surah, ayah, lang) {
     try {
         // Fetch English translation
         const enResponse = await fetch(
-            `https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/en.hilali`
+            `https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/${lang}`
         );
         if (!enResponse.ok) {
             throw new Error("Failed to fetch English Ayah");
@@ -32,10 +43,13 @@ async function getayah(surah, ayah) {
         }
         const arData = await arResponse.json();
 
+        // return values
         if (enData.code === 200 && arData.code === 200) {
             return {
                 en: enData.data.text,
+                enName: enData.data.surah.englishName,
                 ar: arData.data.text,
+                arName: arData.data.surah.name,
             };
         } else {
             throw new Error("Failed to fetch Ayah");
@@ -45,13 +59,6 @@ async function getayah(surah, ayah) {
         throw err;
     }
 }
-// https://quran.com/1/1
-const site1 = "https://quran.com/";
-// https://quranwbw.com/2#5
-const site2 = "https://quranwbw.com/";
-// https://tanzil.net/#trans/en.hilali/2:6
-// https://tanzil.net/#2:6
-const site3 = "https://tanzil.net/";
 
 function qurancomFix(surah, ayahNum) {
     if (ayahNum === "" || ayahNum === "0") {
@@ -101,6 +108,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
     const surahName = document.getElementById("surah").value;
+    const lang = document.getElementById("lang").value;
     const surahNum = document.getElementById("Surah-num").value;
     const ayahNum = document.getElementById("ayah-num").value;
     var surah = "";
@@ -121,6 +129,11 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
         const url3 = tanzilFix(surah, ayahNum);
         const url4 = tanzilEnFix(surah, ayahNum);
 
+        // add buttons to increment/decrement ayah
+        document.getElementById(
+            "buttons"
+        ).innerHTML = `<button type="submit" onclick="document.getElementById('ayah-num').value = parseInt(document.getElementById('ayah-num').value) - 1;" > Prev </button> - <button type="submit" onclick="document.getElementById('ayah-num').value = parseInt(document.getElementById('ayah-num').value) + 1;" > Next </button>`;
+
         // QuranCom
         document.getElementById(
             "result"
@@ -137,30 +150,44 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
         ).innerHTML += `<li><a href="${url3}" target="_blank">${url3}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
 
         // Append and copy ayah
-        getayah(surah, ayahNum)
+        getayah(surah, ayahNum, lang)
             .then((result) => {
+                // Variables
+                enSurahDetails = `Surah ${result.enName}, ${surah}:${ayahNum}`;
+                arSurahDetails = `${result.arName} ، ${surah}:${ayahNum}`;
+                fullc = `${result.ar} [${arSurahDetails}]\n\n${result.en} [${enSurahDetails}]`;
+                arc = `${result.ar} [${arSurahDetails}]`;
+                enc = `${result.en} [${enSurahDetails}]`;
+
+                // copy by default
+                copyToClipboard(fullc);
+
+                // Ayah Print
                 document.getElementById(
                     "quran"
-                ).innerHTML = `<br>${result.ar} <br> ${result.en}<br><br>`;
+                ).innerHTML = `${enSurahDetails}<br><br>${result.ar} <br><br> ${result.en}<br><br>`;
 
                 // buttons to copy
+                // full copy
                 document.getElementById(
                     "quran"
-                ).innerHTML += `<button onclick='copyToClipboard("${result.ar}\\n\\n${result.en}")'>Copy Full</button>`;
+                ).innerHTML += `<button onclick='copyToClipboard(fullc)'>Copy Full</button>`;
 
+                // Arabic copy
                 document.getElementById(
                     "quran"
-                ).innerHTML += ` - <button onclick='copyToClipboard("${result.ar}")'>Copy Arabic</button>`;
+                ).innerHTML += ` - <button onclick='copyToClipboard(arc)'>Copy Arabic</button>`;
 
+                // English copy
                 document.getElementById(
                     "quran"
-                ).innerHTML += ` - <button onclick='copyToClipboard("${result.en}")'>Copy English</button>`;
+                ).innerHTML += ` - <button onclick='copyToClipboard(enc)'>Copy Translation</button>`;
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
                 document.getElementById(
                     "quran"
-                ).innerHTML += `Error fetching Ayah. Website problem or Net problem.`;
+                ).innerHTML = `Error fetching Ayah. Website problem or Net problem.`;
             });
     }
 });
