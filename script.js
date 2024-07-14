@@ -187,7 +187,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 console.error("Error fetching data:", error);
                 document.getElementById(
                     "quran"
-                ).innerHTML = `Error fetching Ayah. Website problem or Net problem.`;
+                ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the Urls above instead.`;
             });
     }
 });
