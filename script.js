@@ -14,9 +14,10 @@ function copyToClipboard(textToCopy) {
         .writeText(textToCopy)
         .then(() => {
             // alert(`Copied the text: ${textToCopy}`);
+            const printCopy = textToCopy.replace(/\n/g, "<br>");
             document.getElementById(
                 "copy-status"
-            ).innerHTML = `✅📋 Copied to Clipboard:</h1><h4>${textToCopy}`;
+            ).innerHTML = `✅📋 Copied to Clipboard:</h1><h4>${printCopy}`;
         })
         .catch((err) => {
             console.error("Error copying text: ", err);
@@ -257,16 +258,20 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 .then((tafsir) => {
                     document.getElementById("tafsir-print").style.display =
                         "block";
+
                     // Variables
-                    tafsirDetails = `${tafsir.name}, ${surah}:${ayahNum}`;
-                    tafsirCopy = `${tafsir.text} \n\n [${tafsirDetails}]`;
+                    const tafsirDetails = `${tafsir.name}, ${surah}:${ayahNum}`;
+                    // newline fixes. double new line looks better
+                    const tafsirPrint = tafsir.text.replace(/\n/g, "<br><br>");
+                    const tafsirCopyTmp = tafsir.text.replace(/\n/g, "\n\n");
+                    tafsirCopy = `${tafsirCopyTmp} \n\n [${tafsirDetails}]`;
 
                     // tafsir Print
                     document.getElementById(
                         "tafsir-print"
                     ).innerHTML = `${tafsirDetails}<br><br>`;
                     document.getElementById("tafsir-print").innerHTML +=
-                        tafsirCopy;
+                        tafsirPrint;
 
                     // buttons to copy
                     // full copy
