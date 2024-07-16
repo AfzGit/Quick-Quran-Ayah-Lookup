@@ -7,7 +7,7 @@ const site2 = "https://quranwbw.com/";
 const site3 = "https://tanzil.net/";
 
 // copy variables
-let fullc, arc, enc;
+let fullc, arc, enc, tafsirCopy;
 
 function copyToClipboard(textToCopy) {
     navigator.clipboard
@@ -67,10 +67,37 @@ async function getAyah(surah, ayah, lang) {
 // Parameters: (1-114), (1-286), (en, ar, ur), (tafisr-ibn-kathir, tafseer-al-saddi)
 async function getTafsir(surah, ayah, lang, tafsirName) {
     try {
+        // Unavailable translation error
         if (lang == "en" && tafsirName == "tafseer-al-saddi") {
             throw new Error(
                 "Tafsir Saadi is unavailable in English in Tafsir-API. Only Arabic."
             );
+        }
+
+        // Name fix for tafsir
+        var trueName;
+        switch (tafsirName) {
+            case "tafseer-al-saddi":
+                trueName = "Tafsir As-Sa'di";
+                break;
+            case "tafisr-ibn-kathir":
+                trueName = "Tafsir Ibn Kathir";
+                break;
+            default:
+                trueName = tafsirName;
+        }
+
+        // lang fix for tafsir
+        switch (lang) {
+            case "eng":
+                lang = "en";
+                break;
+            case "ara":
+                lang = "ar";
+                break;
+            case "urd":
+                lang = "ur";
+                break;
         }
 
         // Fetch translation
@@ -88,7 +115,8 @@ async function getTafsir(surah, ayah, lang, tafsirName) {
                 throw new Error("No Tafsir for this Ayah");
             } else {
                 return {
-                    tafsir: tafsirData.text,
+                    text: tafsirData.text,
+                    name: trueName,
                 };
             }
         } else {
@@ -151,6 +179,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
     const lang = document.getElementById("lang").value;
     const surahNum = document.getElementById("Surah-num").value;
     const ayahNum = document.getElementById("ayah-num").value;
+    const tafsirHTML = document.getElementById("tafsir").value;
     var surah = "";
 
     if (surahName !== "") {
@@ -229,5 +258,28 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     "quran"
                 ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the Urls above instead.`;
             });
+
+        if (!tafsirHTML == "") {
+            // Append Tafsir
+            getTafsir(surah, ayahNum, lang, tafsirHTML)
+                .then((tafsir) => {
+                    // Variables
+                    tafsirDetails = `${tafsir.name}, ${surah}:${ayahNum}`;
+                    tafsirCopy = `${tafsir.text} \n\n ${tafsirDetails}`;
+
+                    // tafsir Print
+                    document.getElementById("quran").innerHTML += tafsirCopy;
+
+                    // buttons to copy
+                    // full copy
+                    document.getElementById(
+                        "quran"
+                    ).innerHTML += `- <button onclick='copyToClipboard(tafsirCopy)'>Copy Tafsir</button>`;
+                })
+                .catch((error) => {
+                    console.error("Error fetching tafsir: ", error);
+                    document.getElementById("quran").innerHTML = `${error}`;
+                });
+        }
     }
 });
