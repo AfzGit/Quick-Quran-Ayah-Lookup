@@ -255,6 +255,8 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
             // Append Tafsir
             getTafsir(surah, ayahNum, tafsirHTML)
                 .then((tafsir) => {
+                    document.getElementById("tafsir-print").style.display =
+                        "block";
                     // Variables
                     tafsirDetails = `${tafsir.name}, ${surah}:${ayahNum}`;
                     tafsirCopy = `${tafsir.text} \n\n [${tafsirDetails}]`;
@@ -276,6 +278,8 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     console.error("Error fetching tafsir: ", error);
                     document.getElementById("quran").innerHTML = `${error}`;
                 });
+        } else {
+            document.getElementById("tafsir-print").style.display = "none";
         }
     }
 });
