@@ -33,6 +33,35 @@
             h3,
             h4 {
                 border: 3px solid black; /* Border style */
+                padding: 10px;
+                margin-right: 3%;
+                text-align: justify;
+                border-radius: 10px;
+            }
+            /* Styles for desktop screens */
+            @media (min-width: 700px) {
+                h3,
+                h4 {
+                    margin-right: 20%;
+                }
+            }
+            @media (min-width: 1000px) {
+                h3,
+                h4 {
+                    margin-right: 30%;
+                }
+            }
+            @media (min-width: 1200px) {
+                h3,
+                h4 {
+                    margin-right: 50%;
+                }
+            }
+            @media (min-width: 1600px) {
+                h3,
+                h4 {
+                    margin-right: 60%;
+                }
             }
         </style>
     </head>
@@ -225,44 +254,12 @@
                 <br /><br />
                 <div id="buttons"></div>
             </form>
-            <h3
-                id="result"
-                style="
-                    background-color: rosybrown;
-                    border-radius: 10px;
-                    padding: 10px;
-                "
-            >
-                Urls
-            </h3>
-            <h3
-                id="quran"
-                style="
-                    background-color: burlywood;
-                    border-radius: 10px;
-                    padding: 10px;
-                "
-            >
-                Quran
-            </h3>
-            <h4
-                id="tafsir-print"
-                style="
-                    background-color: rgb(239, 204, 157);
-                    border-radius: 10px;
-                    padding: 10px;
-                "
-            >
+            <h3 id="result" style="background-color: rosybrown">Urls</h3>
+            <h3 id="quran" style="background-color: burlywood">Quran</h3>
+            <h4 id="tafsir-print" style="background-color: rgb(239, 204, 157)">
                 Tafsir
             </h4>
-            <h4
-                id="copy-status"
-                style="
-                    background-color: darkgoldenrod;
-                    border-radius: 10px;
-                    padding: 10px;
-                "
-            >
+            <h4 id="copy-status" style="background-color: darkgoldenrod">
                 Clipboard
             </h4>
         </div>
