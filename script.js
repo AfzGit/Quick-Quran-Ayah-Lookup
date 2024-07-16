@@ -252,7 +252,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 console.error("Error fetching data:", error);
                 document.getElementById(
                     "quran"
-                ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the Urls below instead.`;
+                ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the <a href="#result">Urls below</a> instead.`;
             });
 
         if (!tafsirHTML == "") {
@@ -278,31 +278,31 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     // full copy
                     document.getElementById(
                         "tafsir-print"
-                    ).innerHTML += `<br><button onclick='copyToClipboard(tafsirCopy)'>Copy Tafsir</button>`;
+                    ).innerHTML += `<button onclick='copyToClipboard(tafsirCopy)'>Copy Tafsir</button>`;
                 })
                 .catch((error) => {
                     console.error("Error fetching tafsir: ", error);
                     document.getElementById(
                         "tafsir-print"
-                    ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the Urls below instead.`;
+                    ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the <a href="#result">Urls below</a> instead.`;
                 });
 
             // jumpers top and bottom
             document.getElementById(
                 "buttons"
-            ).innerHTML += `<br><br>Jump to: ${jumpTafsir} - <a href="#jump2">Bottom</a>`;
+            ).innerHTML += `<br><br>Jump to: ${jumpTafsir} - <a href="#jump-bottom">Bottom</a>`;
             document.getElementById(
-                "jumpBottom"
+                "jump-bottom"
             ).innerHTML = `Jump To: ${jumpTafsir} - <a href="#">Top</a>`;
         } else {
             document.getElementById("tafsir-print").style.display = "none";
             // jumpers top and bottom
             document.getElementById(
                 "buttons"
-            ).innerHTML += `<br><br>Jump to: ${jump} - <a href="#jump2">Bottom</a>`;
+            ).innerHTML += `<br><br>Jump to: ${jump} - <a href="#jump-bottom">Bottom</a>`;
             document.getElementById(
-                "jump2"
-            ).innerHTML += `Jump to: ${jump} - <a href="#">Top</a>`;
+                "jump-bottom"
+            ).innerHTML = `Jump to: ${jump} - <a href="#">Top</a>`;
         }
     }
 });
