@@ -24,6 +24,19 @@ function copyToClipboard(textToCopy) {
 }
 
 async function getAyah(surah, ayah, lang) {
+    // lang fix for tafsir
+    switch (lang) {
+        case "english":
+            lang = "en.hilali";
+            break;
+        case "urdu":
+            lang = "ur.junagarhi";
+            break;
+        case "arabic":
+            lang = "en.hilali";
+            break;
+    }
+    console.log("🚀 ~ getAyah ~ lang:", lang);
     try {
         // Fetch English translation
         const enResponse = await fetch(
@@ -62,47 +75,29 @@ async function getAyah(surah, ayah, lang) {
 
 // https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/editions.json
 // https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/en-tafisr-ibn-kathir/1/1.json
-// getTafsir(1, 2, ar, tafseer-al-saddi)
-// getTafsir(1, 2, en, tafisr-ibn-kathir)
+// getTafsir(1, 2, ar-tafseer-al-saddi)
+// getTafsir(1, 2, entafisr-ibn-kathir)
 // Parameters: (1-114), (1-286), (en, ar, ur), (tafisr-ibn-kathir, tafseer-al-saddi)
-async function getTafsir(surah, ayah, lang, tafsirName) {
+async function getTafsir(surah, ayah, tafsirName) {
+    // Name fix for tafsir
+    var trueName;
+    switch (tafsirName) {
+        case "ar-tafseer-al-saddi":
+            trueName = "Tafsir As-Sa'di";
+            break;
+        case "ar-tafisr-ibn-kathir":
+        case "en-tafisr-ibn-kathir":
+        case "ur-tafisr-ibn-kathir":
+            trueName = "Tafsir Ibn Kathir";
+            break;
+        default:
+            trueName = tafsirName;
+    }
+
     try {
-        // Unavailable translation error
-        if (lang == "en" && tafsirName == "tafseer-al-saddi") {
-            throw new Error(
-                "Tafsir Saadi is unavailable in English in Tafsir-API. Only Arabic."
-            );
-        }
-
-        // Name fix for tafsir
-        var trueName;
-        switch (tafsirName) {
-            case "tafseer-al-saddi":
-                trueName = "Tafsir As-Sa'di";
-                break;
-            case "tafisr-ibn-kathir":
-                trueName = "Tafsir Ibn Kathir";
-                break;
-            default:
-                trueName = tafsirName;
-        }
-
-        // lang fix for tafsir
-        switch (lang) {
-            case "eng":
-                lang = "en";
-                break;
-            case "ara":
-                lang = "ar";
-                break;
-            case "urd":
-                lang = "ur";
-                break;
-        }
-
         // Fetch translation
         const tafsirResponse = await fetch(
-            `https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${lang}-${tafsirName}/${surah}/${ayah}.json`
+            `https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${tafsirName}/${surah}/${ayah}.json`
         );
         if (!tafsirResponse.ok) {
             throw new Error("Failed to fetch English Tafsir");
@@ -177,6 +172,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
 
     const surahName = document.getElementById("surah").value;
     const lang = document.getElementById("lang").value;
+    console.log("🚀 ~ lang:", lang);
     const surahNum = document.getElementById("Surah-num").value;
     const ayahNum = document.getElementById("ayah-num").value;
     const tafsirHTML = document.getElementById("tafsir").value;
@@ -261,7 +257,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
 
         if (!tafsirHTML == "") {
             // Append Tafsir
-            getTafsir(surah, ayahNum, lang, tafsirHTML)
+            getTafsir(surah, ayahNum, tafsirHTML)
                 .then((tafsir) => {
                     // Variables
                     tafsirDetails = `${tafsir.name}, ${surah}:${ayahNum}`;
