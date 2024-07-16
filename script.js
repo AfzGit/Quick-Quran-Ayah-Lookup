@@ -23,7 +23,7 @@ function copyToClipboard(textToCopy) {
         });
 }
 
-async function getayah(surah, ayah, lang) {
+async function getAyah(surah, ayah, lang) {
     try {
         // Fetch English translation
         const enResponse = await fetch(
@@ -150,7 +150,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
         ).innerHTML += `<li><a href="${url3}" target="_blank">${url3}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
 
         // Append and copy ayah
-        getayah(surah, ayahNum, lang)
+        Getayah(surah, ayahNum, lang)
             .then((result) => {
                 // Variables
                 enSurahDetails = `Surah ${result.enName}, ${surah}:${ayahNum}`;
