@@ -269,7 +269,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     // tafsir Print
                     document.getElementById(
                         "tafsir-print"
-                    ).innerHTML = `${tafsirDetails}<hr class="black-hr"><br>${tafsirDetails}<br><hr class="black-hr">`;
+                    ).innerHTML = `${tafsirDetails}<hr class="black-hr"><br>${tafsirPrint}<br><hr class="black-hr">`;
 
                     // buttons to copy
                     // full copy
