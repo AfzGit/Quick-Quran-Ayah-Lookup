@@ -24,7 +24,7 @@ function copyToClipboard(textToCopy) {
 }
 
 async function getAyah(surah, ayah, lang) {
-    // lang fix for tafsir
+    // lang fix for ayah
     switch (lang) {
         case "english":
             lang = "en.hilali";
@@ -36,8 +36,8 @@ async function getAyah(surah, ayah, lang) {
             lang = "en.hilali";
             break;
     }
-    console.log("🚀 ~ getAyah ~ lang:", lang);
     try {
+        // console.log( `https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/${lang}`);
         // Fetch English translation
         const enResponse = await fetch(
             `https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/${lang}`
@@ -85,9 +85,9 @@ async function getTafsir(surah, ayah, tafsirName) {
         case "ar-tafseer-al-saddi":
             trueName = "Tafsir As-Sa'di";
             break;
-        case "ar-tafisr-ibn-kathir":
+        case "ar-tafsir-ibn-kathir":
         case "en-tafisr-ibn-kathir":
-        case "ur-tafisr-ibn-kathir":
+        case "ur-tafseer-ibn-e-kaseer":
             trueName = "Tafsir Ibn Kathir";
             break;
         default:
@@ -96,6 +96,7 @@ async function getTafsir(surah, ayah, tafsirName) {
 
     try {
         // Fetch translation
+        //console.log( `https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${tafsirName}/${surah}/${ayah}.json`);
         const tafsirResponse = await fetch(
             `https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${tafsirName}/${surah}/${ayah}.json`
         );
@@ -105,17 +106,13 @@ async function getTafsir(surah, ayah, tafsirName) {
         const tafsirData = await tafsirResponse.json();
 
         // return values
-        if (tafsirData.code === 200) {
-            if (tafsirData.text == "") {
-                throw new Error("No Tafsir for this Ayah");
-            } else {
-                return {
-                    text: tafsirData.text,
-                    name: trueName,
-                };
-            }
+        if (tafsirData.text == "") {
+            throw new Error("No Tafsir for this Ayah");
         } else {
-            throw new Error("Failed to fetch Tafsir");
+            return {
+                text: tafsirData.text,
+                name: trueName,
+            };
         }
     } catch (err) {
         console.error(err);
@@ -172,7 +169,6 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
 
     const surahName = document.getElementById("surah").value;
     const lang = document.getElementById("lang").value;
-    console.log("🚀 ~ lang:", lang);
     const surahNum = document.getElementById("Surah-num").value;
     const ayahNum = document.getElementById("ayah-num").value;
     const tafsirHTML = document.getElementById("tafsir").value;
@@ -264,13 +260,16 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     tafsirCopy = `${tafsir.text} \n\n ${tafsirDetails}`;
 
                     // tafsir Print
+                    document.getElementById(
+                        "quran"
+                    ).innerHTML += `<hr>${tafsirDetails}<br><br>`;
                     document.getElementById("quran").innerHTML += tafsirCopy;
 
                     // buttons to copy
                     // full copy
                     document.getElementById(
                         "quran"
-                    ).innerHTML += `- <button onclick='copyToClipboard(tafsirCopy)'>Copy Tafsir</button>`;
+                    ).innerHTML += `<br><button onclick='copyToClipboard(tafsirCopy)'>Copy Tafsir</button>`;
                 })
                 .catch((error) => {
                     console.error("Error fetching tafsir: ", error);
