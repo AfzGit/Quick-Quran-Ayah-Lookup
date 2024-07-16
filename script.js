@@ -60,7 +60,45 @@ async function getAyah(surah, ayah, lang) {
     }
 }
 
-// function getTafsir(Ayah) {}
+// https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/editions.json
+// https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/en-tafisr-ibn-kathir/1/1.json
+// getTafsir(1, 2, ar, tafseer-al-saddi)
+// getTafsir(1, 2, en, tafisr-ibn-kathir)
+// Parameters: (1-114), (1-286), (en, ar, ur), (tafisr-ibn-kathir, tafseer-al-saddi)
+async function getTafsir(surah, ayah, lang, tafsirName) {
+    try {
+        if (lang == "en" && tafsirName == "tafseer-al-saddi") {
+            throw new Error(
+                "Tafsir Saadi is unavailable in English in Tafsir-API. Only Arabic."
+            );
+        }
+
+        // Fetch translation
+        const tafsirResponse = await fetch(
+            `https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${lang}-${tafsirName}/${surah}/${ayah}.json`
+        );
+        if (!tafsirResponse.ok) {
+            throw new Error("Failed to fetch English Tafsir");
+        }
+        const tafsirData = await tafsirResponse.json();
+
+        // return values
+        if (tafsirData.code === 200) {
+            if (tafsirData.text == "") {
+                throw new Error("No Tafsir for this Ayah");
+            } else {
+                return {
+                    tafsir: tafsirData.text,
+                };
+            }
+        } else {
+            throw new Error("Failed to fetch Tafsir");
+        }
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
 
 function qurancomFix(surah, ayahNum) {
     if (ayahNum === "" || ayahNum === "0") {
