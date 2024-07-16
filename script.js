@@ -227,7 +227,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 // Ayah Print
                 document.getElementById(
                     "quran"
-                ).innerHTML = `${enSurahDetails}<hr class="black-hr"><br>${result.ar} <br><br>${result.en}<br><hr class="black-hr">`;
+                ).innerHTML = `${enSurahDetails}<hr class="black-hr"><br>${result.ar} <br><br>${result.en}<br><br><hr class="black-hr">`;
 
                 // buttons to copy
                 // full copy
