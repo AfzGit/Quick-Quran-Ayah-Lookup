@@ -8,4 +8,4 @@ Website for Hadith: https://afzgit.github.io/Quick-Hadith-Lookup/
 
 -   APIs used:
     -   Tafsir: https://github.com/spa5k/tafsir_api
-    -   Quran: alquran.cloud
+    -   Quran: https://www.alquran.cloud
