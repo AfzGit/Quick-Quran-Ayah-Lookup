@@ -17,7 +17,7 @@ function copyToClipboard(textToCopy) {
             const printCopy = textToCopy.replace(/\n/g, "<br>");
             document.getElementById(
                 "copy-status"
-            ).innerHTML = `✅📋 Copied to Clipboard:<h4>${printCopy}`;
+            ).innerHTML = `✅📋 Copied to Clipboard:<hr class="black-hr"><br>${printCopy}`;
         })
         .catch((err) => {
             console.error("Error copying text: ", err);
@@ -227,7 +227,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 // Ayah Print
                 document.getElementById(
                     "quran"
-                ).innerHTML = `${enSurahDetails}<br><br>${result.ar} <br><br>${result.en}<br><br>`;
+                ).innerHTML = `${enSurahDetails}<hr class="black-hr"><br>${result.ar} <br><br>${result.en}<br><hr class="black-hr">`;
 
                 // buttons to copy
                 // full copy
@@ -269,9 +269,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     // tafsir Print
                     document.getElementById(
                         "tafsir-print"
-                    ).innerHTML = `${tafsirDetails}<br><br>`;
-                    document.getElementById("tafsir-print").innerHTML +=
-                        tafsirPrint;
+                    ).innerHTML = `${tafsirDetails}<hr class="black-hr"><br>${tafsirDetails}<br><hr class="black-hr">`;
 
                     // buttons to copy
                     // full copy
