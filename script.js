@@ -257,18 +257,19 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 .then((tafsir) => {
                     // Variables
                     tafsirDetails = `${tafsir.name}, ${surah}:${ayahNum}`;
-                    tafsirCopy = `${tafsir.text} \n\n ${tafsirDetails}`;
+                    tafsirCopy = `${tafsir.text} \n\n [${tafsirDetails}]`;
 
                     // tafsir Print
                     document.getElementById(
-                        "quran"
-                    ).innerHTML += `<hr>${tafsirDetails}<br><br>`;
-                    document.getElementById("quran").innerHTML += tafsirCopy;
+                        "tafsir-print"
+                    ).innerHTML = `${tafsirDetails}<br><br>`;
+                    document.getElementById("tafsir-print").innerHTML +=
+                        tafsirCopy;
 
                     // buttons to copy
                     // full copy
                     document.getElementById(
-                        "quran"
+                        "tafsir-print"
                     ).innerHTML += `<br><button onclick='copyToClipboard(tafsirCopy)'>Copy Tafsir</button>`;
                 })
                 .catch((error) => {
