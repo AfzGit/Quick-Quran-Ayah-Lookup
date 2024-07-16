@@ -60,6 +60,8 @@ async function getAyah(surah, ayah, lang) {
     }
 }
 
+function getTafsir(Ayah) {}
+
 function qurancomFix(surah, ayahNum) {
     if (ayahNum === "" || ayahNum === "0") {
         ayahNum = "";
@@ -150,7 +152,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
         ).innerHTML += `<li><a href="${url3}" target="_blank">${url3}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
 
         // Append and copy ayah
-        Getayah(surah, ayahNum, lang)
+        getAyah(surah, ayahNum, lang)
             .then((result) => {
                 // Variables
                 enSurahDetails = `Surah ${result.enName}, ${surah}:${ayahNum}`;
