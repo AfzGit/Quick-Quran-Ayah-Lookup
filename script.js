@@ -281,7 +281,9 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 })
                 .catch((error) => {
                     console.error("Error fetching tafsir: ", error);
-                    document.getElementById("quran").innerHTML = `${error}`;
+                    document.getElementById(
+                        "tafsir-print"
+                    ).innerHTML = `${error}`;
                 });
         } else {
             document.getElementById("tafsir-print").style.display = "none";
