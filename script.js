@@ -60,7 +60,7 @@ async function getAyah(surah, ayah, lang) {
     }
 }
 
-function getTafsir(Ayah) {}
+// function getTafsir(Ayah) {}
 
 function qurancomFix(surah, ayahNum) {
     if (ayahNum === "" || ayahNum === "0") {
