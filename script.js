@@ -102,7 +102,7 @@ async function getTafsir(surah, ayah, tafsirName) {
             `https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${tafsirName}/${surah}/${ayah}.json`
         );
         if (!tafsirResponse.ok) {
-            throw new Error("Failed to fetch English Tafsir");
+            throw new Error("Failed to fetch Tafsir");
         }
         const tafsirData = await tafsirResponse.json();
 
@@ -283,7 +283,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     console.error("Error fetching tafsir: ", error);
                     document.getElementById(
                         "tafsir-print"
-                    ).innerHTML = `${error}`;
+                    ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the Urls above instead.`;
                 });
         } else {
             document.getElementById("tafsir-print").style.display = "none";
