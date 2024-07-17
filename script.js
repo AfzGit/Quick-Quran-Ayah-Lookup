@@ -251,21 +251,22 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
         // URLs
         document.getElementById("result").innerHTML =
             "URLs<hr class='black-hr'>";
+        surahAyah = `Quran ${surah}:${ayahNum}`;
 
         // QuranCom
         document.getElementById(
             "result"
-        ).innerHTML += `<li>Quran.com: <a href="${url1}" target="_blank">${surah}:${ayahNum}</a></li>`;
+        ).innerHTML += `<li>Quran.com: <a href="${url1}" target="_blank">${surahAyah}</a></li>`;
 
         //  QuranWBW
         document.getElementById(
             "result"
-        ).innerHTML += `<li>QuranWBW: <a href="${url2}" target="_blank">${surah}:${ayahNum}</a></li>`;
+        ).innerHTML += `<li>QuranWBW: <a href="${url2}" target="_blank">${surahAyah}</a></li>`;
 
         // Tanzil
         document.getElementById(
             "result"
-        ).innerHTML += `<li>Tanzil: <a href="${url3}" target="_blank">${surah}:${ayahNum}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
+        ).innerHTML += `<li>Tanzil: <a href="${url3}" target="_blank">${surahAyah}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
 
         // Append and copy ayah
         getAyah(surah, ayahNum, lang)
@@ -283,7 +284,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 // Ayah Print
                 document.getElementById(
                     "quran"
-                ).innerHTML = `${enSurahDetails}<hr class="black-hr"><br>${result.ar} <br><br>${result.en}<br><br><hr class="black-hr">`;
+                ).innerHTML = `${enSurahDetails}<hr class="black-hr"><p class="arabic">${result.ar}</p>${result.en}<br><hr class="black-hr">`;
 
                 // buttons to copy
                 // full copy
@@ -325,7 +326,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     // tafsir Print
                     document.getElementById(
                         "tafsir-print"
-                    ).innerHTML = `${tafsirDetails}<hr class="black-hr"><br>${tafsirPrint}<br><hr class="black-hr">`;
+                    ).innerHTML = `${tafsirDetails}<hr class="black-hr">${tafsirPrint}<hr class="black-hr">`;
 
                     // buttons to copy
                     // full copy
