@@ -197,7 +197,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
         // add buttons to increment/decrement ayah
         document.getElementById(
             "buttons"
-        ).innerHTML = `<button type="submit" onclick="document.getElementById('ayah-num').value = parseInt(document.getElementById('ayah-num').value) - 1;" > Prev </button> - <button type="submit" onclick="document.getElementById('ayah-num').value = parseInt(document.getElementById('ayah-num').value) + 1;" > Next </button>`;
+        ).innerHTML = `<br><button type="submit" onclick="document.getElementById('ayah-num').value = parseInt(document.getElementById('ayah-num').value) - 1;" >⬅️ Prev </button> - <button type="submit" onclick="document.getElementById('ayah-num').value = parseInt(document.getElementById('ayah-num').value) + 1;" > Next ➡️</button>`;
 
         // URLs
         document.getElementById("result").innerHTML =
@@ -217,6 +217,14 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
         document.getElementById(
             "result"
         ).innerHTML += `<li>Tanzil: <a href="${url3}" target="_blank">${surah}:${ayahNum}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
+
+        // jumpers top and bottom
+        document.getElementById(
+            "jump-top"
+        ).innerHTML = `<br>Jump to: ${jump} - <a href="#jump-bottom">Bottom</a>`;
+        document.getElementById(
+            "jump-bottom"
+        ).innerHTML = `Jump to: ${jump} - <a href="#">Top</a>`;
 
         // Append and copy ayah
         getAyah(surah, ayahNum, lang)
@@ -293,20 +301,13 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
 
             // jumpers top and bottom
             document.getElementById(
-                "buttons"
-            ).innerHTML += `<br><br>Jump to: ${jumpTafsir} - <a href="#jump-bottom">Bottom</a>`;
+                "jump-top"
+            ).innerHTML = `<br>Jump to: ${jumpTafsir} - <a href="#jump-bottom">Bottom</a>`;
             document.getElementById(
                 "jump-bottom"
             ).innerHTML = `Jump To: ${jumpTafsir} - <a href="#">Top</a>`;
         } else {
             document.getElementById("tafsir-print").style.display = "none";
-            // jumpers top and bottom
-            document.getElementById(
-                "buttons"
-            ).innerHTML += `<br><br>Jump to: ${jump} - <a href="#jump-bottom">Bottom</a>`;
-            document.getElementById(
-                "jump-bottom"
-            ).innerHTML = `Jump to: ${jump} - <a href="#">Top</a>`;
         }
     }
 });
