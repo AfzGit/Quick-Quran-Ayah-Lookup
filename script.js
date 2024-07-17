@@ -202,17 +202,17 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
         // QuranCom
         document.getElementById(
             "result"
-        ).innerHTML = `<li><a href="${url1}" target="_blank">${url1}</a></li>`;
+        ).innerHTML = `<li><a href="${url1}" target="_blank">${surah}:${ayahNum} on Quran.com</a></li>`;
 
         //  QuranWBW
         document.getElementById(
             "result"
-        ).innerHTML += `<li><a href="${url2}" target="_blank">${url2}</a></li>`;
+        ).innerHTML += `<li><a href="${url2}" target="_blank">${surah}:${ayahNum} on QuranWBW</a></li>`;
 
         // Tanzil
         document.getElementById(
             "result"
-        ).innerHTML += `<li><a href="${url3}" target="_blank">${url3}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
+        ).innerHTML += `<li><a href="${url3}" target="_blank">${surah}:${ayahNum} on Tanzil</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
 
         // Append and copy ayah
         getAyah(surah, ayahNum, lang)
