@@ -6,9 +6,6 @@ const site2 = "https://quranwbw.com/";
 // https://tanzil.net/#2:6
 const site3 = "https://tanzil.net/";
 
-const jump = `<a href="#quran">Quran</a> - <a href="#copy-status">Clipboard</a> - <a href="#result">URLs</a>`;
-const jumpTafsir = `<a href="#quran">Quran</a> - <a href="#tafsir-print">Tafsir</a> - <a href="#copy-status">Clipboard</a> - <a href="#result">URLs</a>`;
-
 // copy variables
 let fullc, arc, enc, tafsirCopy;
 
@@ -270,14 +267,6 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
             "result"
         ).innerHTML += `<li>Tanzil: <a href="${url3}" target="_blank">${surah}:${ayahNum}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
 
-        // jumpers top and bottom
-        document.getElementById(
-            "jump-top"
-        ).innerHTML = `<br>Jump to: ${jump} - <a href="#jump-bottom">Bottom</a>`;
-        document.getElementById(
-            "jump-bottom"
-        ).innerHTML = `Jump to: ${jump} - <a href="#">Top</a>`;
-
         // Append and copy ayah
         getAyah(surah, ayahNum, lang)
             .then((result) => {
@@ -350,14 +339,6 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                         "tafsir-print"
                     ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the <a href="#result">URLs below</a> instead.`;
                 });
-
-            // jumpers top and bottom
-            document.getElementById(
-                "jump-top"
-            ).innerHTML = `<br>Jump to: ${jumpTafsir} - <a href="#jump-bottom">Bottom</a>`;
-            document.getElementById(
-                "jump-bottom"
-            ).innerHTML = `Jump To: ${jumpTafsir} - <a href="#">Top</a>`;
         } else {
             document.getElementById("tafsir-print").style.display = "none";
         }
