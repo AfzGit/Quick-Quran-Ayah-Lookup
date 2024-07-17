@@ -12,15 +12,67 @@ const jumpTafsir = `<a href="#quran">Quran</a> - <a href="#tafsir-print">Tafsir<
 // copy variables
 let fullc, arc, enc, tafsirCopy;
 
+// keyboard shortcuts
+document.addEventListener("keydown", function (event) {
+    if (event.key === "i") {
+        document.getElementById("urlForm").scrollIntoView();
+    } else if (event.key === "q") {
+        document.getElementById("quran").scrollIntoView();
+    } else if (event.key === "t") {
+        document.getElementById("tafsir-print").scrollIntoView();
+    } else if (event.key === "u") {
+        document.getElementById("result").scrollIntoView();
+    } else if (event.key === "c") {
+        document.getElementById("copy-status").scrollIntoView();
+    }
+});
+
+// table of contents
+document.addEventListener("DOMContentLoaded", function () {
+    var tocIcon = document.getElementById("tocIcon");
+    var toc = document.getElementById("toc");
+    var overlay = document.createElement("div");
+    overlay.className = "overlay";
+    document.body.appendChild(overlay);
+
+    tocIcon.addEventListener("click", function () {
+        toc.classList.toggle("open");
+        overlay.classList.toggle("open");
+    });
+
+    overlay.addEventListener("click", function () {
+        toc.classList.remove("open");
+        overlay.classList.remove("open");
+    });
+
+    // Add event listeners to each TOC link
+    var tocLinks = toc.querySelectorAll("a");
+    tocLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+            toc.classList.remove("open");
+            overlay.classList.remove("open");
+        });
+    });
+});
+
+// copy To Clipboard
 function copyToClipboard(textToCopy) {
     navigator.clipboard
         .writeText(textToCopy)
         .then(() => {
-            // alert(`Copied the text: ${textToCopy}`);
+            // print ready
             const printCopy = textToCopy.replace(/\n/g, "<br>");
             document.getElementById(
                 "copy-status"
-            ).innerHTML = `✅📋 Copied to Clipboard:<hr class="black-hr">${printCopy}<hr class="black-hr">`;
+            ).innerHTML = `✔️📋 Copied to Clipboard:<hr class="black-hr">${printCopy}<hr class="black-hr">`;
+
+            // notify
+            const notification = document.getElementById("notification");
+            notification.style.display = "block";
+            notification.innerHTML = `✔️📋 Copied`;
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 2000); // Hide after 3 seconds
         })
         .catch((err) => {
             console.error("Error copying text: ", err);
