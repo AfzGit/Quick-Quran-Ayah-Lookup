@@ -6,8 +6,8 @@ const site2 = "https://quranwbw.com/";
 // https://tanzil.net/#2:6
 const site3 = "https://tanzil.net/";
 
-const jump = `<a href="#quran">Quran</a> - <a href="#copy-status">Clipboard</a> - <a href="#result">Urls</a>`;
-const jumpTafsir = `<a href="#quran">Quran</a> - <a href="#tafsir-print">Tafsir</a> - <a href="#copy-status">Clipboard</a> - <a href="#result">Urls</a>`;
+const jump = `<a href="#quran">Quran</a> - <a href="#copy-status">Clipboard</a> - <a href="#result">URLs</a>`;
+const jumpTafsir = `<a href="#quran">Quran</a> - <a href="#tafsir-print">Tafsir</a> - <a href="#copy-status">Clipboard</a> - <a href="#result">URLs</a>`;
 
 // copy variables
 let fullc, arc, enc, tafsirCopy;
@@ -199,20 +199,24 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
             "buttons"
         ).innerHTML = `<button type="submit" onclick="document.getElementById('ayah-num').value = parseInt(document.getElementById('ayah-num').value) - 1;" > Prev </button> - <button type="submit" onclick="document.getElementById('ayah-num').value = parseInt(document.getElementById('ayah-num').value) + 1;" > Next </button>`;
 
+        // URLs
+        document.getElementById("result").innerHTML =
+            "URLs<hr class='black-hr'>";
+
         // QuranCom
         document.getElementById(
             "result"
-        ).innerHTML = `<li><a href="${url1}" target="_blank">${surah}:${ayahNum} on Quran.com</a></li>`;
+        ).innerHTML += `<li>Quran.com: <a href="${url1}" target="_blank">${surah}:${ayahNum}</a></li>`;
 
         //  QuranWBW
         document.getElementById(
             "result"
-        ).innerHTML += `<li><a href="${url2}" target="_blank">${surah}:${ayahNum} on QuranWBW</a></li>`;
+        ).innerHTML += `<li>QuranWBW: <a href="${url2}" target="_blank">${surah}:${ayahNum}</a></li>`;
 
         // Tanzil
         document.getElementById(
             "result"
-        ).innerHTML += `<li><a href="${url3}" target="_blank">${surah}:${ayahNum} on Tanzil</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
+        ).innerHTML += `<li>Tanzil: <a href="${url3}" target="_blank">${surah}:${ayahNum}</a> (Translation: <a href="${url4}" target="_blank">Hilali</a>)</li>`;
 
         // Append and copy ayah
         getAyah(surah, ayahNum, lang)
@@ -252,7 +256,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 console.error("Error fetching data:", error);
                 document.getElementById(
                     "quran"
-                ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the <a href="#result">Urls below</a> instead.`;
+                ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the <a href="#result">URLs below</a> instead.`;
             });
 
         if (!tafsirHTML == "") {
@@ -284,7 +288,7 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                     console.error("Error fetching tafsir: ", error);
                     document.getElementById(
                         "tafsir-print"
-                    ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the <a href="#result">Urls below</a> instead.`;
+                    ).innerHTML = `${error}<br><br>Potential culprits: <br>- Website/Network problem. <br>- Are you sure the Ayah number is correct for that Surah?<br><br>Try the <a href="#result">URLs below</a> instead.`;
                 });
 
             // jumpers top and bottom
