@@ -274,9 +274,9 @@ document.getElementById("urlForm").addEventListener("submit", function (e) {
                 // Variables
                 enSurahDetails = `Surah ${result.enName}, ${surah}:${ayahNum}`;
                 arSurahDetails = `${result.arName} ، ${surah}:${ayahNum}`;
-                fullc = `{${result.ar}} [${arSurahDetails}]\n\n"${result.en}" [${enSurahDetails}]`;
+                fullc = `{${result.ar}} [${arSurahDetails}]\n\n{${result.en}} [${enSurahDetails}]`;
                 arc = `{${result.ar}} [${arSurahDetails}]`;
-                enc = `"${result.en}" [${enSurahDetails}]`;
+                enc = `{${result.en}} [${enSurahDetails}]`;
 
                 // copy by default
                 copyToClipboard(fullc);
